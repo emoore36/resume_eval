@@ -55,4 +55,4 @@ Then open your favorite web browser to http://localhost:5173/.
 
 ### I tried to install the dependencies and it failed.
  - ~~Sounds like a skill issue, tbh. :p~~
- - Please open an [issue]() and explain the situation in as much detail as you can. Copy/paste those ridiculously long stacktraces. There's gotta be something good in there.
+ - Please open an [issue](https://github.com/emoore36/resume_eval/issues/new?template=Blank+issue) and explain the situation in as much detail as you can. Copy/paste those ridiculously long stacktraces. There's gotta be something good in there.
