@@ -20,7 +20,10 @@ router.post('/', upload.single('resume'), async (req, res, next) => {
   if (!jobDesc) return res.status(400).json({ 'error': 'jobDesc is required.' });
   if (!resume) return res.status(400).json({ 'error': 'resume is required.' });
 
-  const response = await getHisInput(jobDesc, resume);
+  let response = await getHisInput(jobDesc, resume);
+
+  response = response.substring(7, response.length - 4);
+  response = JSON.parse(response);
 
   return res.json({ response });
 });
@@ -48,6 +51,19 @@ const getHisInput = async (jobDesc, resume) => {
           Now assume the role of a job coach.
           How likely are you (on a scale of 1 to 10) to recommend that this candidate apply for this position?
           What relevant advice would you give this candidate?
+          Provide your responses as JSON objects in a format such as this:
+          """
+          {
+            "hiring_manager_assessment": {
+                "likelihood": "integer between 1 and 10",
+                "notes": "text detailing reasons for given likelihood_to_hire."
+            },
+            "job_coach_assessment": {
+                "likelihood": "integer between 1 and 10",
+                "notes": "text detailing reasons for given likelihood_to_hire."
+            }
+        }
+          """
           `
       },
       {
@@ -58,8 +74,7 @@ const getHisInput = async (jobDesc, resume) => {
         role: "user",
         content: `Resume: ${extractedText}`,
       },
-    ],
-    store: true,
+    ]
   });
   const result = completion.choices[0].message?.content;
   return result;

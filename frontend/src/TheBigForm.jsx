@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
+import ResultDisplay from "./ResultDisplay";
+import { Button, Form, FormGroup, Input, Label, Spinner } from 'reactstrap';
 
 const TheBigForm = () => {
-
     const [jobDesc, setJobDesc] = useState('');
     const [resume, setResume] = useState('');
     const [loading, setLoading] = useState(false);
-    const [display, setDisplay] = useState('');
-
+    const [response, setResponse] = useState(null);
 
     const handleJobDescChange = (e) => {
         setJobDesc(e.target.value);
@@ -30,12 +30,11 @@ const TheBigForm = () => {
 
         try {
             const attemptTheImpossible = await axios.post('http://localhost:3000', formData);
-            console.log(attemptTheImpossible);
-            alert('Submitted');
-            setDisplay(attemptTheImpossible.data.response)
+            const data = attemptTheImpossible.data.response;
+            setResponse(data)
         } catch (err) {
-            console.log(err.message);
-            alert('Failed.');
+            console.log('Error occurred:', err);
+            setResponse({ "error": 'Failure!' });
         } finally {
             setLoading(false);
         }
@@ -43,23 +42,19 @@ const TheBigForm = () => {
 
     return (
         <div>
-            <form onSubmit={handleFormSubmit} method="post">
-                <div>
-                    <label htmlFor='jobDesc'>Job Description</label>
-                    <textarea id='jobDesc' name="jobDesc" value={jobDesc} onChange={handleJobDescChange} />
-                </div>
-                <div>
-                    <label htmlFor="resume">Resume</label>
-                    <input type="file" id="resume" name="resume" onChange={handleResumeChange} />
-                </div>
-                <input type="submit" value='Submit' />
-            </form>
-            {loading && <>Loading...</>}
-            {!loading && <>
-                <div>
-                    {display}
-                </div>
-            </>}
+            <Form onSubmit={handleFormSubmit} method="post">
+                <FormGroup>
+                    <Label htmlFor='jobDesc'>Job Description</Label>
+                    <Input type='textarea' id='jobDesc' name="jobDesc" value={jobDesc} onChange={handleJobDescChange} />
+                </FormGroup>
+                <FormGroup>
+                    <Label htmlFor="resume">Resume</Label>
+                    <Input type="file" id="resume" name="resume" onChange={handleResumeChange} />
+                </FormGroup>
+                <Button color="primary">Submit</Button>
+            </Form>
+            {loading && <Spinner />}
+            {!loading && <ResultDisplay data={response} />}
         </div>
     )
 }
