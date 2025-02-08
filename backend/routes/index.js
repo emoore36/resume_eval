@@ -47,9 +47,9 @@ const getHisInput = async (jobDesc, resume) => {
         content: `
           Assume the role of a hiring manager.
           Provided by the user is the job description of a company position and the content of a resume from a prospective candidate.
-          How likely are you (on a scale of 1 to 10) to hire this candidate for this position? Explain your reasoning.
+          How likely are you (on a scale of 1 to 10) to hire this candidate for this position compared to the average likely candidate? Explain your reasoning.
           Now assume the role of a job coach.
-          How likely are you (on a scale of 1 to 10) to recommend that this candidate apply for this position?
+          How likely are you (on a scale of 1 to 10) to recommend that this candidate apply for this position compared to other positions?
           What relevant advice would you give this candidate?
           Provide your responses as JSON objects in a format such as this:
           """

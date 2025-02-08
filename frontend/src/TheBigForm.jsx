@@ -1,13 +1,11 @@
-import axios from "axios";
 import { useState } from "react";
-import ResultDisplay from "./ResultDisplay";
-import { Button, Form, FormGroup, Input, Label, Spinner } from 'reactstrap';
+import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import PropTypes from 'prop-types';
 
-const TheBigForm = () => {
+const TheBigForm = ({ onSubmit }) => {
     const [jobDesc, setJobDesc] = useState('');
     const [resume, setResume] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [response, setResponse] = useState(null);
+
 
     const handleJobDescChange = (e) => {
         setJobDesc(e.target.value);
@@ -19,25 +17,11 @@ const TheBigForm = () => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
 
         if (!resume) return alert('Resume required.');
         if (!jobDesc) return alert('jobDesc required.');
 
-        const formData = new FormData();
-        formData.append('jobDesc', jobDesc);
-        formData.append('resume', resume);
-
-        try {
-            const attemptTheImpossible = await axios.post('http://localhost:3000', formData);
-            const data = attemptTheImpossible.data.response;
-            setResponse(data)
-        } catch (err) {
-            console.log('Error occurred:', err);
-            setResponse({ "error": 'Failure!' });
-        } finally {
-            setLoading(false);
-        }
+        await onSubmit({ resume, jobDesc });
     }
 
     return (
@@ -53,10 +37,12 @@ const TheBigForm = () => {
                 </FormGroup>
                 <Button color="primary">Submit</Button>
             </Form>
-            {loading && <Spinner />}
-            {!loading && <ResultDisplay data={response} />}
         </div>
     )
+}
+
+TheBigForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired
 }
 
 export default TheBigForm;
