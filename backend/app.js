@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors({
-  origin: "http://localhost:5173", // Replace with your frontend URL
+  origin: `${process.env.FRONTEND_URL}`, // Replace with your frontend URL
   credentials: true, // If using cookies, authorization headers, etc.
   methods: ["GET", "POST", "PUT", "DELETE"], // Allow only specific HTTP methods
   allowedHeaders: ["Content-Type", "Authorization"] // Specify allowed headers

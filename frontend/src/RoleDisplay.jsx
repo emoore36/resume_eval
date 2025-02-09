@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import AttributeList from './AttributeList';
 
 const RoleDisplay = ({ data }) => {
-    console.log(data);
     const { notes, pros, cons, likelihood } = data;
 
     return (

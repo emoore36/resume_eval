@@ -5,6 +5,7 @@ import ResultDisplay from './ResultDisplay';
 import { useState } from 'react';
 import axios from 'axios';
 
+
 function App() {
 
   const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ function App() {
     formData.append('resume', data.resume);
 
     try {
-      const sendRequest = await axios.post('http://localhost:3000', formData);
+      const sendRequest = await axios.post(import.meta.env.VITE_BACKEND_URL, formData);
       const data = sendRequest.data.response;
       setResponse(data)
     } catch (err) {
@@ -33,7 +34,7 @@ function App() {
     <>
       <TheBigForm onSubmit={processRequest} />
       {loading && <Spinner />}
-      {!loading && <ResultDisplay data={response} />}
+      {(!loading && response) && <ResultDisplay data={response} />}
     </>
   )
 }
