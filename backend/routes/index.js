@@ -51,16 +51,21 @@ const getHisInput = async (jobDesc, resume) => {
           Now assume the role of a job coach.
           How likely are you (on a scale of 1 to 10) to recommend that this candidate apply for this position compared to other positions?
           What relevant advice would you give this candidate?
+          For each of these roles, provide "pros" and "cons" for both the candidate's suitability for the position (as a hiring manager) and the position's suitability for the candidate (as a job coach).
           Provide your responses as JSON objects in a format such as this:
           """
           {
             "hiring_manager_assessment": {
                 "likelihood": "integer between 1 and 10",
-                "notes": "text detailing reasons for given likelihood_to_hire."
+                "pros": ["pro 1", "pro 2", ...],
+                "cons": ["con 1", "con 2", ...],
+                "notes": "further text detailing reasons for given likelihood_to_hire."
             },
             "job_coach_assessment": {
                 "likelihood": "integer between 1 and 10",
-                "notes": "text detailing reasons for given likelihood_to_hire."
+                "pros": ["pro 1", "pro 2", ...],
+                "cons": ["con 1", "con 2", ...],
+                "notes": "further text detailing reasons for given likelihood_to_hire."
             }
         }
           """
