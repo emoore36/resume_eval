@@ -1,6 +1,9 @@
 # Resume Evaluator
 A little app that allows me to ask ChatGPT if he recommends the prospective candidate apply a job given the job description and candidate's resume.
 
+## Preview
+Try it out yourself by navigating to [this free-tier Render instance](https://resume-eval.onrender.com/).
+
 ## Technological Requirements
 - an [OpenAI API account](https://platform.openai.com/)
 - Node v20.10.0
