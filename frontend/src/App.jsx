@@ -23,8 +23,12 @@ function App() {
       const data = sendRequest.data.response;
       setResponse(data)
     } catch (err) {
-      console.log('Error occurred:', err);
-      setResponse({ "error": 'Failure!' });
+      if (err.status === 503) {
+        setResponse({ 'error': 'Server rate limit reached.' });
+      } else {
+        console.log('Error occurred:', err);
+        setResponse({ "error": 'Failure!' });
+      }
     } finally {
       setLoading(false);
     }
