@@ -15,10 +15,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(cors({
-  origin: `${process.env.FRONTEND_URL}`, // Replace with your frontend URL
-  credentials: true, // If using cookies, authorization headers, etc.
-  methods: ["GET", "POST", "PUT", "DELETE"], // Allow only specific HTTP methods
-  allowedHeaders: ["Content-Type", "Authorization"] // Specify allowed headers
+  origin: `${process.env.FRONTEND_URL}`,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use('/', indexRouter);
